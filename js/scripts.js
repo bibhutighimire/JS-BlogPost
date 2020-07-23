@@ -56,12 +56,12 @@ class Article {
 
         btnEdit.addEventListener("click", function () {
             const parentArticleToBeEdited = this.parentElement;
-            console.log(parentArticleToBeEdited);
-            console.log("dsss");
             const editInputTitle=document.createElement("input");
             editInputTitle.setAttribute("id","inputContentTitle");
+            editInputTitle.setAttribute("type","text");
             const editInputContent=document.createElement("input");
             editInputContent.setAttribute("id","inputContent");
+            editInputContent.setAttribute("type","text");
             const btnSave = document.createElement("button");
             btnSave.setAttribute("id", "btnStyle");
             btnSave.innerText = "Save";
@@ -74,8 +74,8 @@ class Article {
             console.log("title above");
             console.log(editContent);
             console.log("editContent above");
-            editInputTitle.value=parentArticleToBeEdited.children[1].value;
-           editInputContent.value=parentArticleToBeEdited.children[2].value;
+            editInputTitle.value=editTitle.textContent;
+           editInputContent.value=editContent.textContent;
 
         })
 
