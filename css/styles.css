@@ -110,3 +110,7 @@ article ul li {
 .hide {
     display: none;
 }
+#error {
+    color:red;
+    font-weight: bold;
+}

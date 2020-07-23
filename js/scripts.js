@@ -20,6 +20,7 @@ class Article {
     }
     // Creating method to add article's title and content
     addArticle(inputContentTitle = "", inputContent = "") {
+        
         let ul = document.querySelector("ul");
         let li = document.createElement("li");
         ul.appendChild(li);
@@ -39,6 +40,7 @@ class Article {
         // Fill in the text of the element (using template literal.)
         titleOfContent.textContent = `${this.title}`;
         bodyOfContent.textContent = `${this.content}`;
+       
         // Add the new element to the body of our webpage.
         li.appendChild(dateTimeNow);
         li.appendChild(titleOfContent);
@@ -53,10 +55,10 @@ class Article {
 
         btnEdit.addEventListener("click", function () {
             const parentArticleToBeEdited = this.parentElement;
-            let i=0;
-            for(i=0;i<5;i++ )
+            let k=0;
+            for(k=0;k<5;k++ )
             {
-                parentArticleToBeEdited.children[i].style.display="none";
+                parentArticleToBeEdited.children[k].style.display="none";
             }
             
             const editInputTitle=document.createElement("input");
@@ -90,7 +92,7 @@ class Article {
            btnSave.addEventListener("click", function () {
             const parentArticleToBeSaved = this.parentElement;
             const title = editInputTitle.value;
-            const content =  editInputContent.value
+            const content =  editInputContent.value;
             const articleOne = new Article(title, content);
             articleOne.addArticle();
             parentArticleToBeSaved.style.display="none";
@@ -100,16 +102,17 @@ class Article {
         })
 
          //btn cancel
-         btnCancel.addEventListener("click", function () {
-            const parentArticleToBeCancelled = this.parentElement;
-            for(let i=0;i<5;i++ )
+            btnCancel.addEventListener("click", function () {
+                let k=0;
+            for(k=0;k<5;k++ )
             {
-                parentArticleToBeCancelled.children[i].style.display="block";
+                this.parentElement.children[k].style.display="block";
             }
-            for(let i=5;i<9;i++ )
+            for(k=5;k<9;k++ )
             {
-                parentArticleToBeCancelled.children[i].style.display="none";
+                this.parentElement.children[k].style.display="none";
             }
+        
          })
 
         })
@@ -119,10 +122,19 @@ class Article {
 
 btnSubmitContent.addEventListener("click", function () {
 
-    const title = inputContentTitle.value;
-    const content = inputContent.value;
+    const title = inputContentTitle.value.trim();
+    const content = inputContent.value.trim();
+    let errorMsg = document.querySelector("#error");
+    if(title !== "" && content !== "")
+    {
+        errorMsg.textContent="";
     const articleOne = new Article(title, content);
     articleOne.addArticle();
     Clear();
+    }
+    else {
+
+        errorMsg.textContent="Title/Content can not be empty";
+    }
 })
 
