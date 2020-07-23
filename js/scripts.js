@@ -28,11 +28,8 @@ class Article {
         const bodyOfContent = document.createElement("P");
         const dateTimeNow = document.createElement("time");
         dateTimeNow.setAttribute("id", "showDateTime");
-
         const today = new Date();
-
         dateTimeNow.innerText = ("Created on: " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() + " , " + today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate());
-
         const btnDelete = document.createElement("button");
         btnDelete.setAttribute("id", "btnStyle");
         btnDelete.innerText = "Delete";
@@ -56,29 +53,67 @@ class Article {
 
         btnEdit.addEventListener("click", function () {
             const parentArticleToBeEdited = this.parentElement;
+            let i=0;
+            for(i=0;i<5;i++ )
+            {
+                parentArticleToBeEdited.children[i].style.display="none";
+            }
+            
             const editInputTitle=document.createElement("input");
             editInputTitle.setAttribute("id","inputContentTitle");
             editInputTitle.setAttribute("type","text");
             const editInputContent=document.createElement("input");
             editInputContent.setAttribute("id","inputContent");
             editInputContent.setAttribute("type","text");
+            //save button
             const btnSave = document.createElement("button");
             btnSave.setAttribute("id", "btnStyle");
             btnSave.innerText = "Save";
+            //cancel button
+            const btnCancel = document.createElement("button");
+            btnCancel.setAttribute("id", "btnStyle");
+            btnCancel.innerText = "Cancel";
+            //appending everything
             parentArticleToBeEdited.appendChild(editInputTitle);
             parentArticleToBeEdited.appendChild(editInputContent);
             parentArticleToBeEdited.appendChild(btnSave);
+            parentArticleToBeEdited.appendChild(btnCancel);
             const editTitle=parentArticleToBeEdited.children[1];
             const editContent=parentArticleToBeEdited.children[2];
-            console.log(editTitle);
-            console.log("title above");
-            console.log(editContent);
-            console.log("editContent above");
+           
             editInputTitle.value=editTitle.textContent;
            editInputContent.value=editContent.textContent;
 
+
+           //btn Save
+
+           btnSave.addEventListener("click", function () {
+            const parentArticleToBeSaved = this.parentElement;
+            const title = editInputTitle.value;
+            const content =  editInputContent.value
+            const articleOne = new Article(title, content);
+            articleOne.addArticle();
+            parentArticleToBeSaved.style.display="none";
+          //  Clear();
+
+
         })
 
+         //btn cancel
+         btnCancel.addEventListener("click", function () {
+            const parentArticleToBeCancelled = this.parentElement;
+            for(let i=0;i<5;i++ )
+            {
+                parentArticleToBeCancelled.children[i].style.display="block";
+            }
+            for(let i=5;i<9;i++ )
+            {
+                parentArticleToBeCancelled.children[i].style.display="none";
+            }
+         })
+
+        })
+       
     }
 }
 
@@ -86,9 +121,6 @@ btnSubmitContent.addEventListener("click", function () {
 
     const title = inputContentTitle.value;
     const content = inputContent.value;
-    console.log(title);
-    console.log(content);
-    console.log("title and content above");
     const articleOne = new Article(title, content);
     articleOne.addArticle();
     Clear();
